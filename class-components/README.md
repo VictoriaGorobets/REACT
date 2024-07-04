@@ -1,4 +1,4 @@
-## Installation and Setup Instructions
+### Installation and Setup Instructions
 
 To get started with project, follow these steps:
 
