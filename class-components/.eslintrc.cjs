@@ -19,5 +19,9 @@ module.exports = {
   plugins: ['react-refresh', 'prettier'],
   rules: {
     'react-refresh/only-export-components': ['warn', { allowConstantExport: true }],
+    "no-console": "warn",
+    "react/prefer-stateless-function": "warn",
+    "react/no-unused-state": "warn",
+    "react/destructuring-assignment": "warn"
   },
 };
