@@ -1,38 +1,49 @@
 import { Component } from "react";
 import SearchBar from "./components/SearchBar/SearchBar";
 import ResultsList from "./components/ResultsList/ResultsList";
+import ErrorBoundary from "./components/ErrorBoundary/ErrorBoundary";
 import "./index.css";
 
 interface AppProps {}
 
 interface AppState {
-  hasState: boolean;
+  searchTerm: string;
+  useStarTrekApi: boolean;
 }
 
 class App extends Component<AppProps, AppState> {
   constructor(props: AppProps) {
     super(props);
+    const savedSearchTerm = localStorage.getItem("searchTerm") || "";
     this.state = {
-      hasState: false, // Инициализируем состояние
+      searchTerm: savedSearchTerm,
+      useStarTrekApi: false,
     };
   }
 
-  toggleState = () => {
-    this.setState((prevState) => ({ hasState: !prevState.hasState }));
+  handleSearch = (searchTerm: string) => {
+    this.setState({ searchTerm });
+    localStorage.setItem("searchTerm", searchTerm.trim());
+  };
+
+  throwError = () => {
+    this.setState({ useStarTrekApi: true });
+    throw new Error("Test Error");
   };
 
   render() {
-    const { hasState } = this.state; // Деструктуризация состояния
+    const { searchTerm, useStarTrekApi } = this.state;
 
     return (
-      <div className="app">
-        <SearchBar />
-        <ResultsList />
-        <button type="button" onClick={this.toggleState}>
-          Toggle State
-        </button>
-        {hasState && <p>State is true</p>}
-      </div>
+        <ErrorBoundary>
+          <div className="app">
+            <SearchBar onSearch={this.handleSearch} />
+            <ResultsList searchTerm={searchTerm} useStarTrekApi={useStarTrekApi} />
+            <button type="button" onClick={this.throwError}>
+              Throw Error
+            </button>
+          </div>
+        </ErrorBoundary>
     );
   }
 }
