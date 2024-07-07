@@ -44,15 +44,24 @@ class ResultsList extends Component<ResultsListProps, ResultsListState> {
 
     try {
       let url = "https://swapi.dev/api/people/";
+      let options: RequestInit = {};
+
       const { useStarTrekApi } = this.props;
 
       if (useStarTrekApi) {
         url = "https://stapi.co/api/v1/rest/character/search";
+        options = {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+          },
+          body: `name=${encodeURIComponent(searchTerm)}`
+        };
       } else if (searchTerm) {
         url = `${url}?search=${encodeURIComponent(searchTerm)}`;
       }
 
-      const response = await fetch(url);
+      const response = await fetch(url, options);
 
       if (!response.ok) {
         throw new Error(`Error: ${response.status}`);
@@ -62,20 +71,22 @@ class ResultsList extends Component<ResultsListProps, ResultsListState> {
 
       let characters: Character[] = [];
       if (useStarTrekApi) {
-        characters = data.characters.map((character: string) => ({
+        characters = data.characters.map((character: { name: string; uid: string }) => ({
           name: character.name,
-          url: character.uid,  // Assuming 'url' is equivalent to 'uid' in Star Trek API
+          url: character.uid,
         }));
       } else {
-        characters = data.results.map((character: string) => ({
+        characters = data.results.map((character: { name: string; url: string }) => ({
           name: character.name,
           url: character.url,
         }));
       }
 
       this.setState({ characters, loading: false });
-    } catch (error: Error) {
-      this.setState({ loading: false, error: error.message });
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        this.setState({ loading: false, error: error.message });
+      }
     }
   };
 
@@ -87,7 +98,7 @@ class ResultsList extends Component<ResultsListProps, ResultsListState> {
     }
 
     if (error) {
-      throw new Error(error);
+      return <div>Error: {error}</div>;
     }
 
     return (

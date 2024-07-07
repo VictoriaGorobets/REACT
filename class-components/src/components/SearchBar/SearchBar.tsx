@@ -18,9 +18,8 @@ class SearchBar extends Component<SearchBarProps, SearchBarState> {
   }
 
   handleSearch = () => {
+    const { onSearch } = this.props; // Деструктуризация пропсов
     const { searchTerm } = this.state;
-    const { onSearch } = this.props;
-
     onSearch(searchTerm.trim());
     localStorage.setItem("searchTerm", searchTerm.trim());
   };
