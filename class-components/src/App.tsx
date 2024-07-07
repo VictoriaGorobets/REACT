@@ -36,13 +36,13 @@ class App extends Component<object, AppState> {
 
         return (
             <div>
-                <SearchBar onSearch={this.handleSearch} />
+                <SearchBar onSearch={this.handleSearch}/>
+                <ErrorBoundary>
+                    <ResultsList searchTerm={searchTerm} useStarTrekApi={useStarTrekApi}/>
+                </ErrorBoundary>
                 <button type="button" onClick={this.toggleApi}>
                     Toggle API
                 </button>
-                <ErrorBoundary>
-                    <ResultsList searchTerm={searchTerm} useStarTrekApi={useStarTrekApi} />
-                </ErrorBoundary>
             </div>
         );
     }
