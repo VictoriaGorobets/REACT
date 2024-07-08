@@ -6,10 +6,10 @@ interface Character {
   url: string;
 }
 
-interface ResultsListProps {
-  searchTerm: string;
-  useStarTrekApi: boolean;
-}
+// interface ResultsListProps {
+//   searchTerm: string;
+//   useStarTrekApi: boolean;
+// }
 
 interface ResultsListState {
   characters: Character[];
