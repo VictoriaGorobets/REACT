@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import styles from './ResultsList.module.css';
 
 interface Character {
@@ -6,10 +6,10 @@ interface Character {
   url: string;
 }
 
-// interface ResultsListProps {
-//   searchTerm: string;
-//   useStarTrekApi: boolean;
-// }
+interface ResultsListProps {
+  searchTerm: string;
+  useStarTrekApi: boolean;
+}
 
 interface ResultsListState {
   characters: Character[];
