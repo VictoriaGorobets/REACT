@@ -1,51 +1,54 @@
-import { Component } from "react";
-import SearchBar from "./components/SearchBar/SearchBar";
-import ResultsList from "./components/ResultsList/ResultsList";
-import ErrorBoundary from "./components/ErrorBoundary/ErrorBoundary";
-import "./index.css";
+import { Component } from 'react';
+import SearchBar from './components/SearchBar/SearchBar';
+import ResultsList from './components/ResultsList/ResultsList';
+import ErrorBoundary from './components/ErrorBoundary/ErrorBoundary';
+import './index.css';
 
 interface AppState {
-    searchTerm: string;
-    useStarTrekApi: boolean;
+  searchTerm: string;
+  useStarTrekApi: boolean;
 }
 
 class App extends Component<object, AppState> {
-    constructor(props: object) {
-        super(props);
-        this.state = {
-            searchTerm: localStorage.getItem("searchTerm") || "",
-            useStarTrekApi: false,
-        };
-    }
-
-    handleSearch = (searchTerm: string) => {
-        this.setState({ searchTerm });
+  constructor(props: object) {
+    super(props);
+    this.state = {
+      searchTerm: localStorage.getItem('searchTerm') || '',
+      useStarTrekApi: false,
     };
+  }
 
-    toggleApi = () => {
-        this.setState((prevState) => ({
-            useStarTrekApi: !prevState.useStarTrekApi,
-        }), () => {
-            const { searchTerm } = this.state;
-            this.handleSearch(searchTerm);
-        });
-    };
+  handleSearch = (searchTerm: string) => {
+    this.setState({ searchTerm });
+  };
 
-    render() {
-        const { searchTerm, useStarTrekApi } = this.state;
+  toggleApi = () => {
+    this.setState(
+      (prevState) => ({
+        useStarTrekApi: !prevState.useStarTrekApi,
+      }),
+      () => {
+        const { searchTerm } = this.state;
+        this.handleSearch(searchTerm);
+      }
+    );
+  };
 
-        return (
-            <div>
-                <SearchBar onSearch={this.handleSearch}/>
-                <ErrorBoundary>
-                    <ResultsList searchTerm={searchTerm} useStarTrekApi={useStarTrekApi}/>
-                </ErrorBoundary>
-                <button type="button" onClick={this.toggleApi}>
-                    Toggle API
-                </button>
-            </div>
-        );
-    }
+  render() {
+    const { searchTerm, useStarTrekApi } = this.state;
+
+    return (
+      <div>
+        <SearchBar onSearch={this.handleSearch} />
+        <ErrorBoundary>
+          <ResultsList searchTerm={searchTerm} useStarTrekApi={useStarTrekApi} />
+        </ErrorBoundary>
+        <button type="button" onClick={this.toggleApi}>
+          Toggle API
+        </button>
+      </div>
+    );
+  }
 }
 
 export default App;

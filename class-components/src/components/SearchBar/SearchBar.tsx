@@ -1,5 +1,5 @@
-import { Component, ChangeEvent } from "react";
-import styles from "./SearchBar.module.css";
+import { Component, ChangeEvent } from 'react';
+import styles from './SearchBar.module.css';
 
 interface SearchBarProps {
   onSearch: (searchTerm: string) => void;
@@ -13,7 +13,7 @@ class SearchBar extends Component<SearchBarProps, SearchBarState> {
   constructor(props: SearchBarProps) {
     super(props);
     this.state = {
-      searchTerm: "",
+      searchTerm: '',
     };
   }
 
@@ -21,7 +21,7 @@ class SearchBar extends Component<SearchBarProps, SearchBarState> {
     const { onSearch } = this.props; // Деструктуризация пропсов
     const { searchTerm } = this.state;
     onSearch(searchTerm.trim());
-    localStorage.setItem("searchTerm", searchTerm.trim());
+    localStorage.setItem('searchTerm', searchTerm.trim());
   };
 
   handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -32,17 +32,12 @@ class SearchBar extends Component<SearchBarProps, SearchBarState> {
     const { searchTerm } = this.state;
 
     return (
-        <div className={styles.searchBar}>
-          <input
-              type="text"
-              placeholder="Search..."
-              value={searchTerm}
-              onChange={this.handleInputChange}
-          />
-          <button type="button" onClick={this.handleSearch}>
-            Search
-          </button>
-        </div>
+      <div className={styles.searchBar}>
+        <input type="text" placeholder="Search..." value={searchTerm} onChange={this.handleInputChange} />
+        <button type="button" onClick={this.handleSearch}>
+          Search
+        </button>
+      </div>
     );
   }
 }

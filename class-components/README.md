@@ -23,7 +23,6 @@ To get started with project, follow these steps:
 6. **Once the server is running, you can visit the app at:**
    [http://localhost:5173/](http://localhost:5173/)
 
-
 ## Available Scripts
 
 In the project directory, you can run the following scripts:

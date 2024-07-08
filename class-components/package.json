@@ -8,7 +8,7 @@
     "start": "npm run dev",
     "build": "tsc && vite build",
     "dev:build": "tsc && vite build --mode development",
-    "format": "prettier --write 'src/**/*.{ts,tsx,css}'",
+    "format:fix": "prettier . --write",
     "ci:format": "prettier --check 'src/**/*.{ts,tsx,css}'",
     "lint": "eslint ./src --ext ts,tsx --report-unused-disable-directives",
     "lint:fix": "eslint --fix ./src --ext ts,tsx --report-unused-disable-directives --max-warnings 0",

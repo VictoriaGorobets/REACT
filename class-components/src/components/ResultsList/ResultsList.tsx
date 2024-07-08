@@ -1,5 +1,5 @@
-import { Component } from "react";
-import styles from "./ResultsList.module.css";
+import { Component } from 'react';
+import styles from './ResultsList.module.css';
 
 interface Character {
   name: string;
@@ -43,19 +43,19 @@ class ResultsList extends Component<ResultsListProps, ResultsListState> {
     this.setState({ loading: true, error: null });
 
     try {
-      let url = "https://swapi.dev/api/people/";
+      let url = 'https://swapi.dev/api/people/';
       let options: RequestInit = {};
 
       const { useStarTrekApi } = this.props;
 
       if (useStarTrekApi) {
-        url = "https://stapi.co/api/v1/rest/character/search";
+        url = 'https://stapi.co/api/v1/rest/character/search';
         options = {
           method: 'POST',
           headers: {
-            'Content-Type': 'application/x-www-form-urlencoded'
+            'Content-Type': 'application/x-www-form-urlencoded',
           },
-          body: `name=${encodeURIComponent(searchTerm)}`
+          body: `name=${encodeURIComponent(searchTerm)}`,
         };
       } else if (searchTerm) {
         url = `${url}?search=${encodeURIComponent(searchTerm)}`;
@@ -102,14 +102,14 @@ class ResultsList extends Component<ResultsListProps, ResultsListState> {
     }
 
     return (
-        <div className={styles.resultsList}>
-          {characters.map((character) => (
-              <div key={character.url} className={styles.resultItem}>
-                <h3>{character.name}</h3>
-                <p>URL: {character.url}</p>
-              </div>
-          ))}
-        </div>
+      <div className={styles.resultsList}>
+        {characters.map((character) => (
+          <div key={character.url} className={styles.resultItem}>
+            <h3>{character.name}</h3>
+            <p>URL: {character.url}</p>
+          </div>
+        ))}
+      </div>
     );
   }
 }
