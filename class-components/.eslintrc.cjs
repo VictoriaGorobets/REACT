@@ -16,12 +16,13 @@ module.exports = {
   parserOptions: {
     project: ['./tsconfig.json', './tsconfig.node.json'],
   },
-  plugins: ['react-refresh', 'prettier'],
+  plugins: ['react-refresh', 'prettier', 'react-compiler'],
   rules: {
     'react-refresh/only-export-components': ['warn', { allowConstantExport: true }],
     'no-console': 'warn',
     'react/prefer-stateless-function': 'warn',
     'react/no-unused-state': 'warn',
     'react/destructuring-assignment': 'warn',
+    'react-compiler/react-compiler': 'error',
   },
 };
