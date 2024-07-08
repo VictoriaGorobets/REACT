@@ -1,6 +1,9 @@
 #!/usr/bin/env sh
 . "$(dirname -- "$0")/_/husky.sh"
 
-npx eslint . --ext .js,.jsx,.ts,.tsx || true
+npx lint-staged
+
+#npx eslint . --ext .js,.jsx,.ts,.tsx || true
 #npx prettier --check . || true
 npm run lint
+npx lint-staged
