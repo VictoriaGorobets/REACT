@@ -44,7 +44,7 @@ class App extends Component<object, AppState> {
           <ResultsList searchTerm={searchTerm} useStarTrekApi={useStarTrekApi} />
         </ErrorBoundary>
         <button type="button" onClick={this.toggleApi}>
-          Toggle API
+          Error
         </button>
       </div>
     );
