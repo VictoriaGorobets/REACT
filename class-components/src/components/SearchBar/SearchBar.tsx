@@ -1,45 +1,30 @@
-import { Component, ChangeEvent } from 'react';
+import React, { useState, ChangeEvent } from 'react';
 import styles from './SearchBar.module.css';
 
 interface SearchBarProps {
   onSearch: (searchTerm: string) => void;
 }
 
-interface SearchBarState {
-  searchTerm: string;
-}
+const SearchBar: React.FC<SearchBarProps> = ({ onSearch }) => {
+  const [searchTerm, setSearchTerm] = useState('');
 
-class SearchBar extends Component<SearchBarProps, SearchBarState> {
-  constructor(props: SearchBarProps) {
-    super(props);
-    this.state = {
-      searchTerm: '',
-    };
-  }
-
-  handleSearch = () => {
-    const { onSearch } = this.props; // Деструктуризация пропсов
-    const { searchTerm } = this.state;
+  const handleSearch = () => {
     onSearch(searchTerm.trim());
     localStorage.setItem('searchTerm', searchTerm.trim());
   };
 
-  handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
-    this.setState({ searchTerm: e.target.value });
+  const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setSearchTerm(e.target.value);
   };
 
-  render() {
-    const { searchTerm } = this.state;
-
-    return (
-      <div className={styles.searchBar}>
-        <input type="text" placeholder="Search..." value={searchTerm} onChange={this.handleInputChange} />
-        <button type="button" onClick={this.handleSearch}>
-          Search
-        </button>
-      </div>
-    );
-  }
-}
+  return (
+    <div className={styles.searchBar}>
+      <input type="text" placeholder="Search..." value={searchTerm} onChange={handleInputChange} />
+      <button type="button" onClick={handleSearch}>
+        Search
+      </button>
+    </div>
+  );
+};
 
 export default SearchBar;
