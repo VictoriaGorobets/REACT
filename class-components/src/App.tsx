@@ -1,32 +1,38 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import SearchBar from './components/SearchBar/SearchBar';
 import ResultsList from './components/ResultsList/ResultsList';
+import CharacterDetail from './components/CharacterDetail/CharacterDetail';
 import ErrorBoundary from './components/ErrorBoundary/ErrorBoundary';
-import useSearchTerm from './components/hooks/useSearchTerm';
 import './index.css';
 
-function App() {
-  const [searchTerm, setSearchTerm] = useSearchTerm(localStorage.getItem('searchTerm') || '');
-  const [useStarTrekApi] = React.useState(false);
+const App: React.FC = () => {
+  const [searchTerm, setSearchTerm] = useState<string>(localStorage.getItem('searchTerm') || '');
+  const [useStarTrekApi, setUseStarTrekApi] = useState<boolean>(false);
 
-  const handleSearch = (term: string) => {
-    setSearchTerm(term);
+  const handleSearch = (searchTerm: string) => {
+    setSearchTerm(searchTerm);
   };
 
-  const throwError = () => {
-    throw new Error('Testing Error');
+  const toggleApi = () => {
+    setUseStarTrekApi(prev => !prev);
   };
 
   return (
-    <div>
-      <SearchBar onSearch={handleSearch} />
-      <ErrorBoundary>
-        <ResultsList searchTerm={searchTerm} useStarTrekApi={useStarTrekApi} />
-      </ErrorBoundary>
-      <button type="button" onClick={throwError}>
-        Error
-      </button>
-    </div>
+    <Router>
+      <div>
+        <SearchBar onSearch={handleSearch} />
+        <button type="button" onClick={toggleApi}>Error</button>
+        <ErrorBoundary>
+          <Routes>
+            <Route path="/" element={<ResultsList searchTerm={searchTerm} useStarTrekApi={useStarTrekApi} />} />
+            <Route path="/character/:id" element={<CharacterDetail />} />
+            <Route path="*" element={<div>404 Not Found</div>} />
+          </Routes>
+        </ErrorBoundary>
+      </div>
+    </Router>
   );
-}
+};
+
 export default App;
